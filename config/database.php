@@ -26,7 +26,7 @@ return [
     |
     */
 
-    'default' => env('DB_CONNECTION', 'mysql'),
+    'default' => env('DB_CONNECTION', 'sqlsrv'),
 
     /*
     |--------------------------------------------------------------------------
@@ -77,6 +77,18 @@ return [
             'prefix' => '',
             'schema' => 'public',
             'sslmode' => 'prefer',
+        ],
+
+        'sqlsrv' => [
+            'driver' => 'sqlsrv',
+            // 'server' => env('DB_SERVER', 'svrdbt\sa'),
+            'host' => env('DB_HOST', '136.198.117.75'), 
+            'port' => env('DB_PORT', '1433'),
+            'database' => env('DB_DATABASE', 'MAPROS'),
+            'username' => env('DB_USERNAME', 'sa'),
+            'password' => env('DB_PASSWORD', 'JvcSql@123'),
+            'prefix' => '',
+
         ],
 
     ],
