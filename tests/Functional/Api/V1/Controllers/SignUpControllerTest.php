@@ -15,7 +15,8 @@ class SignUpControllerTest extends TestCase
         $this->post('api/auth/signup', [
             'name' => 'Test User',
             'email' => 'test@email.com',
-            'password' => '123456'
+            'password' => '123456',
+            'nik' => 393870,
         ])->assertJson([
             'status' => 'ok'
         ])->assertStatus(201);
