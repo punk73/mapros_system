@@ -5,6 +5,8 @@ namespace App\Functional\Api\V1\Controllers;
 use Config;
 use App\TestCase;
 use App\Grade;
+use App\User;
+
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class GradeControllerTest extends TestCase
@@ -18,12 +20,19 @@ class GradeControllerTest extends TestCase
         $this->model = new Grade;
     }
 
+    public function setUp(){
+        parent::setUp();
+        $this->login();
+    }
+
     public function testReadAll(){
         $this->get($this->endpoint)
         ->assertJsonStructure([
             'data'
         ])
         ->assertStatus(200);
+
+        fwrite(STDOUT, var_dump($this->token));
     }
 
     public function testReadWithFileter(){
