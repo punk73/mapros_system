@@ -4,11 +4,17 @@ namespace App\Functional\Api\V1\Controllers;
 
 use Config;
 use App\TestCase;
+use App\User;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class SignUpControllerTest extends TestCase
 {
     use DatabaseMigrations;
+
+    public function tearDown(){
+        User::truncate();
+        // fwrite(STDERR, 'called');
+    }
 
     public function testSignUpSuccessfully()
     {
@@ -29,7 +35,8 @@ class SignUpControllerTest extends TestCase
         $this->post('api/auth/signup', [
             'name' => 'Test User',
             'email' => 'test@email.com',
-            'password' => '123456'
+            'password' => '123456',
+            'nik' => 39597
         ])->assertJsonStructure([
             'status', 'token'
         ])->assertJson([
@@ -43,7 +50,7 @@ class SignUpControllerTest extends TestCase
             'name' => 'Test User',
             'email' => 'test@email.com'
         ])->assertJsonStructure([
-            'error'
+            'errors'
         ])->assertStatus(422);
     }
 }

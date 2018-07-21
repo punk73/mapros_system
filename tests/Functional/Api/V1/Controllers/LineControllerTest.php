@@ -14,7 +14,6 @@ class LineControllerTest extends TestCase
     public function testReadAll(){
         $this->get('api/lines/')
         ->assertJsonStructure([
-            
             'data',
         ])
         ->assertStatus(200);

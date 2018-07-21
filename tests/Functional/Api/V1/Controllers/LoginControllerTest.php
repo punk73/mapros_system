@@ -11,6 +11,13 @@ class LoginControllerTest extends TestCase
 {
     use DatabaseMigrations;
 
+    private $expectedErrorJsonFormat = [
+        'errors',
+        'success',
+        'message',
+        'status_code',    
+    ];
+
     public function setUp()
     {
         parent::setUp();
@@ -18,10 +25,18 @@ class LoginControllerTest extends TestCase
         $user = new User([
             'name' => 'Test',
             'email' => 'test@email.com',
-            'password' => '123456'
+            'password' => '123456',
+            'nik' => '393870',
         ]);
 
         $user->save();
+    }
+
+    public function tearDown(){
+        // this method called after each test
+        $user = User::truncate();
+        // below code is to console log
+        // fwrite(STDERR, 'tearDown called!');
     }
 
     public function testLoginSuccessfully()
@@ -43,16 +58,18 @@ class LoginControllerTest extends TestCase
             'email' => 'unknown@email.com',
             'password' => '123456'
         ])->assertJsonStructure([
-            'error'
-        ])->assertStatus(403);
+            'success',
+            'message',
+            'status_code',    
+        ])
+        ->assertStatus(403);
     }
 
     public function testLoginWithReturnsValidationError()
     {
         $this->post('api/auth/login', [
             'email' => 'test@email.com'
-        ])->assertJsonStructure([
-            'error'
-        ])->assertStatus(422);
+        ])->assertJsonStructure($this->expectedErrorJsonFormat)
+        ->assertStatus(422);
     }
 }
