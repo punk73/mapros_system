@@ -16,11 +16,11 @@ class CreateTableLogs extends Migration
         Schema::create('logs', function (Blueprint $table) {
             $table->increments('id');
             $table->string('action');
-            $table->string('scan_nik');
-            $table->integer('scanner_id');
-            $table->string('description');
-            $table->string('ip');
-            $table->int('user_id');
+            $table->string('scan_nik')->nullable();
+            $table->integer('scanner_id')->nullable();
+            $table->string('description')->nullable();
+            $table->string('ip')->nullable();
+            // $table->integer('user_id');
             $table->timestamps();
         });
     }
