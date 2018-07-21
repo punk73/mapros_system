@@ -11,7 +11,6 @@ class LineRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            'process_type' => 'required',
         ];
     }
 

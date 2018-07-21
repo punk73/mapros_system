@@ -14,7 +14,8 @@ class LineControllerTest extends TestCase
     public function testReadAll(){
         $this->get('api/lines/')
         ->assertJsonStructure([
-            'data'
+            
+            'data',
         ])
         ->assertStatus(200);
     }
@@ -22,7 +23,7 @@ class LineControllerTest extends TestCase
     public function testReadWithFileter(){
         $this->get('api/lines/', [
             'name' => 'line01',
-            'process_type' => 'DA'
+            'remark' => 'DA'
         ])
         ->assertJsonStructure([
             'data'
@@ -33,13 +34,16 @@ class LineControllerTest extends TestCase
     public function testPostSuccess(){
         $this->post('api/lines/', [
             'name' => 'line01',
-            'process_type' => 'DA'  
+            'remark' => 'some remark here'  
+        ])
+        ->assertJson([
+            'success' => true
         ])
         ->assertJsonStructure([
             'success',
             'data' => [
                 'name',
-                'process_type'
+                'remark'
             ]
         ])
         ->assertStatus(200);
@@ -47,7 +51,7 @@ class LineControllerTest extends TestCase
 
     public function testPostWithoutProperParameter(){
         $this->post('api/lines/', [
-            'name' => 'line01',
+            'notName' => 'line01', //it should fail because name not being passed by client
         ])
         ->assertJsonStructure([
             'success',
@@ -68,13 +72,12 @@ class LineControllerTest extends TestCase
             'success',
             'data' => [
                 'name',
-                'process_type'       
+                'remark'       
             ]
         ])
         ->assertJson([
             'data' => [
                 'name' => 'line 1 edited',
-                'process_type' => 'DA'
             ]
         ])
         ->assertStatus(200);
@@ -83,7 +86,7 @@ class LineControllerTest extends TestCase
     private function addNewRecord(){
         $line = new Line;
         $line->name = 'dudududk';
-        $line->process_type = 'DA';
+        $line->remark = 'DA';
         $line->save();
     }
 
@@ -93,9 +96,11 @@ class LineControllerTest extends TestCase
         $model = Line::select(['id'])
         ->orderBy('id', 'desc')
         ->first();
-        $this->assertEquals(1, count($model), 'pre conditions');
 
+        $this->assertEquals(1, count($model), 'pre conditions');
         $id = $model->id;
+        $this->assertEquals(!null, $id, 'cek that id not null' );
+
         $this->delete('api/lines/'.$id)
         ->assertJsonStructure([
             'success',
@@ -105,7 +110,8 @@ class LineControllerTest extends TestCase
         ])
         ->assertStatus(200);
 
-        $model = Line::select(['id'])->first();
+        $model = Line::find($id);
+
         $this->assertEquals(0, count($model), 'finish' );
     }
 

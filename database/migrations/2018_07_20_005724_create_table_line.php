@@ -16,7 +16,9 @@ class CreateTableLine extends Migration
         Schema::create('lines', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name', 50);
-            $table->string('process_type', 10);
+            $table->string('remark')->nullable();
+            $table->integer('update_by')->nullable();
+            $table->integer('input_by')->nullable();
             $table->timestamps();
         });
     }

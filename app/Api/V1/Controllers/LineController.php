@@ -14,7 +14,9 @@ class LineController extends Controller
 {
     protected $allowedParameter = [
         'name',
-        'process_type'
+        'remark',
+        'input_by',
+        'update_by',
     ];
     
     public function index(Request $request){
