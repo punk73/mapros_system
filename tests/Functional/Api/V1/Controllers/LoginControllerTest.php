@@ -26,7 +26,7 @@ class LoginControllerTest extends TestCase
             'name' => 'Test',
             'email' => 'test_login_email@email.com',
             'password' => '123456',
-            'nik' => '393870',
+            'nik' => '54845',
         ]);
 
         $user->save();

@@ -18,8 +18,8 @@ class LineControllerTest extends TestCase
         ])
         ->assertStatus(200);
 
-        fwrite(STDOUT, var_dump($this->token));
-        fwrite(STDOUT, 'I am line controller test');
+        // fwrite(STDOUT, var_dump($this->token));
+        // fwrite(STDOUT, 'I am line controller test');
     }
 
     public function testReadWithFileter(){

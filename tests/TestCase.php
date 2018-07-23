@@ -57,8 +57,12 @@ abstract class TestCase extends BaseTestCase
 
         Auth::login($user);
 
+        $this->serverVariables = [
+            'Authorization' => 'Bearer '. $this->token
+        ];
+
         $this->header = [
-            'Bearer '. $this->token
+            'Authorization' => 'Bearer '. $this->token
         ];
     }
 
