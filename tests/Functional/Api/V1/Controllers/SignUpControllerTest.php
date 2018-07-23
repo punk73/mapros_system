@@ -9,20 +9,15 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class SignUpControllerTest extends TestCase
 {
-    use DatabaseMigrations;
-
-    public function tearDown(){
-        User::truncate();
-        // fwrite(STDERR, 'called');
-    }
+    //use DatabaseMigrations is already set by TestCase
 
     public function testSignUpSuccessfully()
     {
         $this->post('api/auth/signup', [
             'name' => 'Test User',
-            'email' => 'test@email.com',
+            'email' => 'new_email@email.com',
             'password' => '123456',
-            'nik' => 393870,
+            'nik' => 39597,
         ])->assertJson([
             'status' => 'ok'
         ])->assertStatus(201);
@@ -34,7 +29,7 @@ class SignUpControllerTest extends TestCase
 
         $this->post('api/auth/signup', [
             'name' => 'Test User',
-            'email' => 'test@email.com',
+            'email' => 'new_email@email.com',
             'password' => '123456',
             'nik' => 39597
         ])->assertJsonStructure([
