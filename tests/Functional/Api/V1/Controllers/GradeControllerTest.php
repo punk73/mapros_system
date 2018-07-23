@@ -11,7 +11,6 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class GradeControllerTest extends TestCase
 {
-    use DatabaseMigrations;
 
     protected $endpoint = 'api/grades/';
     protected $model = null;
@@ -20,10 +19,6 @@ class GradeControllerTest extends TestCase
         $this->model = new Grade;
     }
 
-    public function setUp(){
-        parent::setUp();
-        $this->login();
-    }
 
     public function testReadAll(){
         $this->get($this->endpoint)
@@ -32,7 +27,9 @@ class GradeControllerTest extends TestCase
         ])
         ->assertStatus(200);
 
-        fwrite(STDOUT, var_dump($this->token));
+        // fwrite(STDOUT, var_dump($this->token));
+        // fwrite(STDOUT, 'I am grades test');
+
     }
 
     public function testReadWithFileter(){
