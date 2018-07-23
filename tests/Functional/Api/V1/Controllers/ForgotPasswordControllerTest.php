@@ -16,9 +16,9 @@ class ForgotPasswordControllerTest extends TestCase
 
         $user = new User([
             'name' => 'Test',
-            'email' => 'test@email.com',
+            'email' => 'test_forgot_email@email.com',
             'password' => '123456',
-            'nik' => 39597
+            'nik' => 1514
         ]);
 
         $user->save();
@@ -31,7 +31,7 @@ class ForgotPasswordControllerTest extends TestCase
     public function testForgotPasswordRecoverySuccessfully()
     {
         $this->post('api/auth/recovery', [
-            'email' => 'test@email.com'
+            'email' => 'test_forgot_email@email.com'
         ])->assertJson([
             'status' => 'ok'
         ])->isOk();

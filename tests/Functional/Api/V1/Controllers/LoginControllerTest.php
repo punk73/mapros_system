@@ -24,7 +24,7 @@ class LoginControllerTest extends TestCase
 
         $user = new User([
             'name' => 'Test',
-            'email' => 'test@email.com',
+            'email' => 'test_login_email@email.com',
             'password' => '123456',
             'nik' => '393870',
         ]);
@@ -42,7 +42,7 @@ class LoginControllerTest extends TestCase
     public function testLoginSuccessfully()
     {
         $this->post('api/auth/login', [
-            'email' => 'test@email.com',
+            'email' => 'test_login_email@email.com',
             'password' => '123456'
         ])->assertJson([
             'status' => 'ok'
@@ -68,7 +68,7 @@ class LoginControllerTest extends TestCase
     public function testLoginWithReturnsValidationError()
     {
         $this->post('api/auth/login', [
-            'email' => 'test@email.com'
+            'email' => 'test_login_email@email.com'
         ])->assertJsonStructure($this->expectedErrorJsonFormat)
         ->assertStatus(422);
     }
