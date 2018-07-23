@@ -19,14 +19,14 @@ class ResetPasswordControllerTest extends TestCase
 
         $user = new User([
             'name' => 'Test User',
-            'email' => 'test@email.com',
+            'email' => 'test_email@email.com',
             'password' => '123456',
-            'nik' => 393870
+            'nik' => 39894
         ]);
         $user->save();
 
         DB::table('password_resets')->insert([
-            'email' => 'test@email.com',
+            'email' => 'test_email@email.com',
             'token' => bcrypt('my_super_secret_code'),
             'created_at' => Carbon::now()
         ]);
@@ -40,7 +40,7 @@ class ResetPasswordControllerTest extends TestCase
     public function testResetSuccessfully()
     {
         $this->post('api/auth/reset', [
-            'email' => 'test@email.com',
+            'email' => 'test_email@email.com',
             'token' => 'my_super_secret_code',
             'password' => 'mynewpass',
             'password_confirmation' => 'mynewpass'
@@ -54,7 +54,7 @@ class ResetPasswordControllerTest extends TestCase
         Config::set('boilerplate.reset_password.release_token', true);
 
         $this->post('api/auth/reset', [
-            'email' => 'test@email.com',
+            'email' => 'test_email@email.com',
             'token' => 'my_super_secret_code',
             'password' => 'mynewpass',
             'password_confirmation' => 'mynewpass'
@@ -83,7 +83,7 @@ class ResetPasswordControllerTest extends TestCase
     public function testResetReturnsValidationError()
     {
         $this->post('api/auth/reset', [
-            'email' => 'test@email.com',
+            'email' => 'test_email@email.com',
             'token' => 'my_super_secret_code',
             'password' => 'mynewpass'
         ])->assertJsonStructure([
