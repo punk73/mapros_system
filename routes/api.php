@@ -29,6 +29,11 @@ $api->version('v1', function (Router $api) {
                 ]);
             }
         ]);
+
+        $api->get('/me', function (){
+            $user = Auth::user();
+            return $user->toArray();
+        });
     });
 
     $api->get('hello', function() {
