@@ -56,10 +56,15 @@ abstract class TestCase extends BaseTestCase
         JWTAuth::setToken($this->token);
 
         Auth::login($user);
+
+        $this->header = [
+            'Bearer '. $this->token
+        ];
     }
 
     public function setUp(){
         parent::setUp();
         $this->login();
+
     }
 }
