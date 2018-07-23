@@ -67,4 +67,10 @@ abstract class TestCase extends BaseTestCase
         $this->login();
 
     }
+
+    public function testHeaderExist(){
+
+        $this->assertTrue(is_array( $this->header) );
+        $this->assertTrue($this->token !== null );
+    }
 }

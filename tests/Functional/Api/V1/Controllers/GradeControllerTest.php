@@ -26,10 +26,6 @@ class GradeControllerTest extends TestCase
             'data'
         ])
         ->assertStatus(200);
-
-        // fwrite(STDOUT, var_dump($this->token));
-        // fwrite(STDOUT, 'I am grades test');
-
     }
 
     public function testReadWithFileter(){
