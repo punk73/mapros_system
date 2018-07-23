@@ -34,6 +34,16 @@ $api->version('v1', function (Router $api) {
             $user = Auth::user();
             return $user->toArray();
         });
+
+        $api->group(['prefix' => 'grades'], function (Router $api) {
+            $api->get('/', 'App\\Api\\V1\\Controllers\\GradeController@index' );
+            $api->post('/', 'App\\Api\\V1\\Controllers\\GradeController@store' );
+            $api->put('/{id}', 'App\\Api\\V1\\Controllers\\GradeController@update' );
+            $api->delete('/{id}', 'App\\Api\\V1\\Controllers\\GradeController@delete' );
+            $api->get('/{id}', 'App\\Api\\V1\\Controllers\\GradeController@show' );
+        });
+
+        
     });
 
     $api->get('hello', function() {
@@ -50,13 +60,7 @@ $api->version('v1', function (Router $api) {
         $api->get('/{id}', 'App\\Api\\V1\\Controllers\\LineController@show' );
     });
 
-    $api->group(['prefix' => 'grades'], function (Router $api) {
-        $api->get('/', 'App\\Api\\V1\\Controllers\\GradeController@index' );
-        $api->post('/', 'App\\Api\\V1\\Controllers\\GradeController@store' );
-        $api->put('/{id}', 'App\\Api\\V1\\Controllers\\GradeController@update' );
-        $api->delete('/{id}', 'App\\Api\\V1\\Controllers\\GradeController@delete' );
-        $api->get('/{id}', 'App\\Api\\V1\\Controllers\\GradeController@show' );
-    });
+    
 
     $api->group(['prefix' => 'accesses'], function (Router $api) {
         $api->get('/', 'App\\Api\\V1\\Controllers\\AccessController@index' );
