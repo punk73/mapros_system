@@ -7,6 +7,7 @@ use App\User;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Contracts\Console\Kernel;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 
 abstract class TestCase extends BaseTestCase
@@ -16,6 +17,9 @@ abstract class TestCase extends BaseTestCase
      *
      * @var string
      */
+
+    use DatabaseMigrations;
+
     protected $baseUrl = 'http://localhost';
 
     /**
@@ -52,5 +56,10 @@ abstract class TestCase extends BaseTestCase
         JWTAuth::setToken($this->token);
 
         Auth::login($user);
+    }
+
+    public function setUp(){
+        parent::setUp();
+        $this->login();
     }
 }
