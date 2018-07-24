@@ -61,7 +61,7 @@ class LineControllerTest extends TestCase
             'message',
             'status_code',
         ])
-        ->assertStatus(422);   
+        ->assertStatus(500);   
     }
 
     public function testPut(){
