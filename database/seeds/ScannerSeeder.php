@@ -1,8 +1,9 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\Scanner;
 
-class DatabaseSeeder extends Seeder
+class ScannerSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,9 +12,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // $this->call(UsersTableSeeder::class);
-        $this->call(
-        	ScannerSeeder::class
-        );
+        factory(App\Scanner::class, 10 )->create();
     }
 }

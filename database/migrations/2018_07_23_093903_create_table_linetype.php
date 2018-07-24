@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTableScanners extends Migration
+class CreateTableLinetype extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,10 @@ class CreateTableScanners extends Migration
      */
     public function up()
     {
-        Schema::create('scanners', function (Blueprint $table) {
+        Schema::create('linetypes', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('sequence_id');
             $table->string('name');
-            $table->string('mac_address');
-            $table->string('ip_address');
+            
             $table->timestamps();
         });
     }
@@ -30,6 +28,6 @@ class CreateTableScanners extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('scanners');
+        Schema::dropIfExists('linetypes');
     }
 }

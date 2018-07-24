@@ -1,71 +1,52 @@
 <?php
+namespace App\Functional\Api\V1\Traits;
 
-namespace App\Functional\Api\V1\Controllers;
+trait testHelper {
+    /*
+        expectedJsonStructure is array that used to assert json structure of test read, read filter,
+    */
+    // protected $expectedJsonStructure;
 
-use Config;
-use App\TestCase;
-use App\Grade;
-use App\User;
-
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-
-class GradeControllerTest extends TestCase
-{
-
-    protected $endpoint = 'api/grades/';
-    protected $model;
-
-    public function __construct(){
-        $this->model = new Grade;
-    }
-
+    // protected $filterParameter;
+    // protected $inputParameter;
 
     public function testReadAll(){
         $this->get($this->endpoint)
-        ->assertJsonStructure([
-            'data'
-        ])
+        ->assertJsonStructure($this->expectedJsonStructure)
         ->assertStatus(200);
     }
 
     public function testReadWithFileter(){
-        $this->get($this->endpoint, [
-            'name' => 'supervisor',
-        ])
-        ->assertJsonStructure([
-            'data'
-        ])
+        $this->get($this->endpoint, $this->filterParameter )
+        ->assertJsonStructure(
+            $this->expectedJsonStructure
+        )
         ->assertStatus(200);
     }
 
     public function testPostSuccess(){
-        $testCase = [
-            'name' => 'supervisor'
-        ];
 
-        $this->post($this->endpoint, $testCase )
+        $this->post($this->endpoint, $this->inputParameter )
         ->assertJsonStructure([
             'success',
             'data'
         ])
         ->assertJson([
             'success' => true,
-            'data' => $testCase  
+            'data' => $this->inputParameter  
         ])
         ->assertStatus(200);
     }
 
     public function testPostWithoutProperParameter(){
-        $this->post($this->endpoint, [
-            'notName' => 'test'
-        ])
+        $this->post($this->endpoint, $this->failedInputParameter )
         ->assertJsonStructure([
             'success',
             'errors',
             'message',
             'status_code',
         ])
-        ->assertStatus(422);   
+        ->assertStatus(500);   
     }
 
     public function testPutSuccess(){
@@ -79,20 +60,14 @@ class GradeControllerTest extends TestCase
 
         $this->assertEquals($id, !null , 'pre conditions');
 
-        $this->put( $this->endpoint .$id, [
-            'name' => 'supervisor edited'
-        ])
+        $this->put( $this->endpoint .$id, $this->putParameter )
         ->assertJsonStructure([
             'success',
-            'data' => [
-                'name'    
-            ]
+            'data'
         ])
         ->assertJson([
             'success' => true,
-            'data' => [
-                'name' => 'supervisor edited'
-            ]
+            'data' => $this->putParameter
         ])
         ->assertStatus(200);
     }
@@ -106,9 +81,7 @@ class GradeControllerTest extends TestCase
         $this->assertEquals($isExists, false , 'kalau ini exists, test case ini tidak benar.');
 
 
-        $this->put( $this->endpoint .$id, [
-            'name' => 'supervisor edited'
-        ])
+        $this->put( $this->endpoint .$id, $this->putParameter )
         ->assertJsonStructure([
             'success',
             'errors',
@@ -120,7 +93,9 @@ class GradeControllerTest extends TestCase
 
     private function addNewRecord(){
         $model = $this->model;
-        $model->name = 'dudududk';
+        foreach ($this->inputParameter as $key => $value) {
+            $model->$key = $value;
+        }
         $model->save();
     }
 
@@ -165,5 +140,4 @@ class GradeControllerTest extends TestCase
         ])
         ->assertStatus(422);
     }
-
 }
