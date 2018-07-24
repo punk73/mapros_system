@@ -5,6 +5,7 @@ namespace App\Functional\Api\V1\Controllers;
 use Config;
 use App\TestCase;
 use App\Line;
+use App\Log;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class LineControllerTest extends TestCase
@@ -34,6 +35,10 @@ class LineControllerTest extends TestCase
     }
 
     public function testPostSuccess(){
+
+        $logCountBefore = Log::all()->count();
+        $this->assertTrue(($logCountBefore === 0), ' testing that log still 0');
+
         $this->post('api/lines/', [
             'name' => 'line01',
             'remark' => 'some remark here'  
@@ -49,6 +54,10 @@ class LineControllerTest extends TestCase
             ]
         ])
         ->assertStatus(200);
+
+        $logCountAfter = Log::all()->count();
+        $this->assertTrue(($logCountAfter > $logCountBefore), 'testing that log has increase' );
+
     }
 
     public function testPostWithoutProperParameter(){
@@ -65,7 +74,12 @@ class LineControllerTest extends TestCase
     }
 
     public function testPut(){
+
         $this->addNewRecord();
+        
+        $logCountBefore = Log::all()->count();
+        $this->assertTrue(($logCountBefore === 0), ' testing that log still 0');
+        
 
         $this->put('api/lines/1', [
             'name' => 'line 1 edited'
@@ -83,6 +97,10 @@ class LineControllerTest extends TestCase
             ]
         ])
         ->assertStatus(200);
+
+        $logCountAfter = Log::all()->count();
+        $this->assertTrue(($logCountAfter > $logCountBefore), 'testing that log has increase' );
+
     }
 
     private function addNewRecord(){
@@ -98,6 +116,9 @@ class LineControllerTest extends TestCase
         $model = Line::select(['id'])
         ->orderBy('id', 'desc')
         ->first();
+
+        $logCountBefore = Log::all()->count();
+        $this->assertTrue(($logCountBefore === 0), ' testing that log still 0');
 
         $this->assertEquals(1, count($model), 'pre conditions');
         $id = $model->id;
@@ -115,6 +136,9 @@ class LineControllerTest extends TestCase
         $model = Line::find($id);
 
         $this->assertEquals(0, count($model), 'finish' );
+
+        $logCountAfter = Log::all()->count();
+        $this->assertTrue(($logCountAfter > $logCountBefore), 'testing that log has increase' );
     }
 
 }

@@ -5,9 +5,11 @@ use Tymon\JWTAuth\JWTAuth;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Model;
+use App\Api\V1\Traits\LoggerHelper;
 
 trait CrudHelper {
 
+    use LoggerHelper;
 	// the controller should always have model var
 	// protected $model;
 
@@ -28,6 +30,8 @@ trait CrudHelper {
         }
 
         $model->save();
+
+        $this->postLog($request, 'Create', $model->toSql());
 
         return [
             'success' => true,
@@ -56,13 +60,15 @@ trait CrudHelper {
 
         $model->save();
 
+        $this->postLog($request, 'Update', $model->toSql());
+        
         return [
             'success' => true,
             'data' => $model
         ];
     }
 
-    public function delete($id){
+    public function delete($id, Request $request){
         $model = $this->model->find($id);
 
         if ( is_null($model) || $model == null ) {
@@ -75,6 +81,8 @@ trait CrudHelper {
         }        
 
         $model->delete();
+
+        $this->postLog($request, 'Delete', $model->toSql());
 
         return [
             'success' => true
