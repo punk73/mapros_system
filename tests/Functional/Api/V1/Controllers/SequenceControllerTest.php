@@ -3,7 +3,7 @@
 namespace App\Functional\Api\V1\Controllers;
 
 use App\TestCase;
-use App\Scanner;
+use App\Sequence;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use App\Functional\Api\V1\Traits\testHelper;
 
@@ -14,31 +14,32 @@ class SequenceControllerTest extends TestCase
 
     protected $endpoint = 'api/sequences/';
 
+    public function __construct(){
+        $this->model = new Sequence;
+    }
+    
     protected $expectedJsonStructure = [
-    	'data',
+        'data',
     ];
 
     protected $filterParameter = [
-    	'name' => 'Scanner'
+        'name' => 'Sequence'
     ];
 
     protected $inputParameter = [
-    	'name' => 'squence 02',
-    	'line_id' => 2,
-    	'lineprocess_id' => 2,
+        'name' => 'squence 02',
+        'line_id' => 2,
+        'lineprocess_id' => 2,
         'lineprocess_id_before' => 1,
     ];
 
     protected $failedInputParameter = [
-    	'notName' => 'klasdf'
+        'notName' => 'klasdf'
     ];
 
     protected $putParameter = [
-    	'name' => 'squence 02'
+        'name' => 'squence 02'
     ];
 
-    public function __construct(){
-        $this->model = new Scanner;
-    }
 
 }
