@@ -9,9 +9,13 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 use Illuminate\Http\Request;
 use App\Api\V1\Requests\NameRequest;
 use App\Grade;
+use App\Api\V1\Traits\LoggerHelper;
+use DB;
 
 class NameOnlyController extends Controller
 {
+    use LoggerHelper;
+
     protected $allowedParameter = [
         'name',
     ];
@@ -32,6 +36,8 @@ class NameOnlyController extends Controller
         }
 
         $model->save();
+
+        $this->postLog($request, 'Create' , $model->toSql() );
 
         return [
             'success' => true,
@@ -60,13 +66,17 @@ class NameOnlyController extends Controller
 
         $model->save();
 
+        $this->postLog($request, 'Update' , $model->toSql() );
+        
         return [
             'success' => true,
             'data' => $model
         ];
     }
 
-    public function delete($id){
+    public function delete($id, Request $request){
+        
+
         $model = $this->model->find($id);
 
         if ( is_null($model) || $model == null ) {
@@ -79,6 +89,11 @@ class NameOnlyController extends Controller
         }        
 
         $model->delete();
+
+        $table = $this->model->getTable();
+        $sql = 'delete from '.$table.' where id='.$id;
+        $this->postLog($request, 'Delete' , $sql );
+        
 
         return [
             'success' => true

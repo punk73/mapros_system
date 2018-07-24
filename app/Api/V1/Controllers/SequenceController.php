@@ -7,10 +7,10 @@ use Tymon\JWTAuth\JWTAuth;
 use App\Http\Controllers\Controller;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Illuminate\Http\Request;
-use App\Scanner;
+use App\Sequence;
 use App\Api\V1\Traits\CrudHelper;
 
-class ScannerController extends Controller
+class SequenceController extends Controller
 {	
 	use CrudHelper;
     // the controller should always have model var
@@ -18,11 +18,13 @@ class ScannerController extends Controller
 
 	// the controller should always have allowedParameter
 	protected $allowedParameter = [
-		'sequence_id', 'name', 'mac_address','ip_address'
-		
+		'name',
+		'line_id',
+		'lineprocess_id',
+		'lineprocess_id_before',
 	];
 
 	public function __construct(){
-		$this->model = new Scanner;
+		$this->model = new Sequence;
 	}
 }

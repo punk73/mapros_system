@@ -7,16 +7,15 @@ use App\Scanner;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use App\Functional\Api\V1\Traits\testHelper;
 
-class BasedControllerTest extends TestCase
+class SequenceControllerTest extends TestCase
 {
-    use DatabaseMigrations,
-        testHelper;
+    use DatabaseMigrations;
+    use testHelper;
 
-    protected $endpoint = 'api/scanners/';
+    protected $endpoint = 'api/sequences/';
 
     protected $expectedJsonStructure = [
     	'data',
-    	// 'success'
     ];
 
     protected $filterParameter = [
@@ -24,10 +23,10 @@ class BasedControllerTest extends TestCase
     ];
 
     protected $inputParameter = [
-    	'sequence_id' => 10,
-    	'name' => 'Scanner 03',
-    	'mac_address' => '3C:FC:92:34:10:F5',
-    	'ip_address' => '16.162.125.87'
+    	'name' => 'squence 02',
+    	'line_id' => 2,
+    	'lineprocess_id' => 2,
+        'lineprocess_id_before' => 1,
     ];
 
     protected $failedInputParameter = [
@@ -35,7 +34,7 @@ class BasedControllerTest extends TestCase
     ];
 
     protected $putParameter = [
-    	'name' => 'scanner name edited'
+    	'name' => 'squence 02'
     ];
 
     public function __construct(){

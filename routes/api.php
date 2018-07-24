@@ -35,6 +35,8 @@ $api->version('v1', function (Router $api) {
             return $user->toArray();
         });
 
+        $api->get('/test', 'App\\Api\\V1\\Controllers\\TestController@index' );
+
         $api->group(['prefix' => 'grades'], function (Router $api) {
             $api->get('/', 'App\\Api\\V1\\Controllers\\GradeController@index' );
             $api->post('/', 'App\\Api\\V1\\Controllers\\GradeController@store' );
@@ -43,6 +45,39 @@ $api->version('v1', function (Router $api) {
             $api->get('/{id}', 'App\\Api\\V1\\Controllers\\GradeController@show' );
         });
 
+        $api->group(['prefix' => 'lines'], function (Router $api) {
+            $api->get('/', 'App\\Api\\V1\\Controllers\\LineController@index' );
+            $api->post('/', 'App\\Api\\V1\\Controllers\\LineController@store' );
+            $api->put('/{id}', 'App\\Api\\V1\\Controllers\\LineController@update' );
+            $api->delete('/{id}', 'App\\Api\\V1\\Controllers\\LineController@delete' );
+            $api->get('/{id}', 'App\\Api\\V1\\Controllers\\LineController@show' );
+        });
+
+        
+
+        $api->group(['prefix' => 'sequences'], function (Router $api) {
+            $api->get('/', 'App\\Api\\V1\\Controllers\\SequenceController@index' );
+            $api->post('/', 'App\\Api\\V1\\Controllers\\SequenceController@store' );
+            $api->put('/{id}', 'App\\Api\\V1\\Controllers\\SequenceController@update' );
+            $api->delete('/{id}', 'App\\Api\\V1\\Controllers\\SequenceController@delete' );
+            $api->get('/{id}', 'App\\Api\\V1\\Controllers\\SequenceController@show' );
+        });
+
+        $api->group(['prefix' => 'accesses'], function (Router $api) {
+            $api->get('/', 'App\\Api\\V1\\Controllers\\AccessController@index' );
+            $api->post('/', 'App\\Api\\V1\\Controllers\\AccessController@store' );
+            $api->put('/{id}', 'App\\Api\\V1\\Controllers\\AccessController@update' );
+            $api->delete('/{id}', 'App\\Api\\V1\\Controllers\\AccessController@delete' );
+            $api->get('/{id}', 'App\\Api\\V1\\Controllers\\AccessController@show' );
+        });
+
+        $api->group(['prefix' => 'departments'], function (Router $api) {
+            $api->get('/', 'App\\Api\\V1\\Controllers\\DepartmentController@index' );
+            $api->post('/', 'App\\Api\\V1\\Controllers\\DepartmentController@store' );
+            $api->put('/{id}', 'App\\Api\\V1\\Controllers\\DepartmentController@update' );
+            $api->delete('/{id}', 'App\\Api\\V1\\Controllers\\DepartmentController@delete' );
+            $api->get('/{id}', 'App\\Api\\V1\\Controllers\\DepartmentController@show' );
+        });
         
     });
 
@@ -52,37 +87,11 @@ $api->version('v1', function (Router $api) {
         ]);
     });
 
-    $api->group(['prefix' => 'lines'], function (Router $api) {
-        $api->get('/', 'App\\Api\\V1\\Controllers\\LineController@index' );
-        $api->post('/', 'App\\Api\\V1\\Controllers\\LineController@store' );
-        $api->put('/{id}', 'App\\Api\\V1\\Controllers\\LineController@update' );
-        $api->delete('/{id}', 'App\\Api\\V1\\Controllers\\LineController@delete' );
-        $api->get('/{id}', 'App\\Api\\V1\\Controllers\\LineController@show' );
-    });
-
     $api->group(['prefix' => 'scanners'], function (Router $api) {
-        $api->get('/', 'App\\Api\\V1\\Controllers\\ScannerController@index' );
-        $api->post('/', 'App\\Api\\V1\\Controllers\\ScannerController@store' );
-        $api->put('/{id}', 'App\\Api\\V1\\Controllers\\ScannerController@update' );
-        $api->delete('/{id}', 'App\\Api\\V1\\Controllers\\ScannerController@delete' );
-        $api->get('/{id}', 'App\\Api\\V1\\Controllers\\ScannerController@show' );
-    });
-
-    
-
-    $api->group(['prefix' => 'accesses'], function (Router $api) {
-        $api->get('/', 'App\\Api\\V1\\Controllers\\AccessController@index' );
-        $api->post('/', 'App\\Api\\V1\\Controllers\\AccessController@store' );
-        $api->put('/{id}', 'App\\Api\\V1\\Controllers\\AccessController@update' );
-        $api->delete('/{id}', 'App\\Api\\V1\\Controllers\\AccessController@delete' );
-        $api->get('/{id}', 'App\\Api\\V1\\Controllers\\AccessController@show' );
-    });
-
-    $api->group(['prefix' => 'departments'], function (Router $api) {
-        $api->get('/', 'App\\Api\\V1\\Controllers\\DepartmentController@index' );
-        $api->post('/', 'App\\Api\\V1\\Controllers\\DepartmentController@store' );
-        $api->put('/{id}', 'App\\Api\\V1\\Controllers\\DepartmentController@update' );
-        $api->delete('/{id}', 'App\\Api\\V1\\Controllers\\DepartmentController@delete' );
-        $api->get('/{id}', 'App\\Api\\V1\\Controllers\\DepartmentController@show' );
-    });
+            $api->get('/', 'App\\Api\\V1\\Controllers\\ScannerController@index' );
+            $api->post('/', 'App\\Api\\V1\\Controllers\\ScannerController@store' );
+            $api->put('/{id}', 'App\\Api\\V1\\Controllers\\ScannerController@update' );
+            $api->delete('/{id}', 'App\\Api\\V1\\Controllers\\ScannerController@delete' );
+            $api->get('/{id}', 'App\\Api\\V1\\Controllers\\ScannerController@show' );
+        });
 });
