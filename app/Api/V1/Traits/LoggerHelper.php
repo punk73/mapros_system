@@ -30,8 +30,8 @@ trait LoggerHelper {
 
     }
 
-    public function getQueryParameter(){
-        $arrayQuery = DB::getQueryLog();
+    public function getQueryParameter($db = DB::class ){
+        $arrayQuery = $db->getQueryLog();
 
         if (count($arrayQuery) == 0 ) {
             return 'no query available';
