@@ -25,6 +25,6 @@ class TestController extends Controller
 
 	// $action=null, $desc = null, $scannerId=null 
 	public function index(Request $request){
-		return $this->postLog($request, 'create', 'query goes here ...');
+		return $this->postLog($request, 'create');
 	}
 }

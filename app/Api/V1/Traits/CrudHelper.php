@@ -6,6 +6,7 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Model;
 use App\Api\V1\Traits\LoggerHelper;
+use DB;
 
 trait CrudHelper {
 
@@ -23,6 +24,7 @@ trait CrudHelper {
     }
 
     public function store(Request $request ){
+        DB::enableQueryLog();
         $model = new $this->model;
         
         foreach ($request->only($this->allowedParameter) as $key => $value) {
@@ -31,7 +33,7 @@ trait CrudHelper {
 
         $model->save();
 
-        $this->postLog($request, 'Create', $model->toSql());
+        $this->postLog($request, 'Create' );
 
         return [
             'success' => true,
@@ -40,6 +42,7 @@ trait CrudHelper {
     }
 
     public function update($id,Request $request){
+        DB::enableQueryLog();
         $model = $this->model->find($id);
 
         if ( is_null($model) || $model == null ) {
@@ -60,7 +63,7 @@ trait CrudHelper {
 
         $model->save();
 
-        $this->postLog($request, 'Update', $model->toSql());
+        $this->postLog($request, 'Update');
         
         return [
             'success' => true,
@@ -69,6 +72,7 @@ trait CrudHelper {
     }
 
     public function delete($id, Request $request){
+        DB::enableQueryLog();
         $model = $this->model->find($id);
 
         if ( is_null($model) || $model == null ) {
@@ -82,7 +86,7 @@ trait CrudHelper {
 
         $model->delete();
 
-        $this->postLog($request, 'Delete', $model->toSql());
+        $this->postLog($request, 'Delete');
 
         return [
             'success' => true
