@@ -18,20 +18,26 @@ trait LoggerHelper {
 
         $ip = $request->ip();
         $user = $this->getUser();
+        $desc = $this->getQueryParameter();
 
         $log = new Log;
         $log->action = $action;
         $log->scan_nik = (isset($user['nik'])) ? $user['nik'] : null ;
         $log->scanner_id = $scannerId;
-        $log->description = $this->getQueryParameter();
+        $log->description = $desc;
         $log->save();
 
         // return $log->toArray();
 
     }
 
-    public function getQueryParameter($db = DB::class ){
-        $arrayQuery = $db->getQueryLog();
+    public function getQueryParameter($db=null){
+        // default value
+        if (!is_null($db)) {
+            $arrayQuery = $db->getQueryLog();    
+        }else{
+            $arrayQuery = DB::getQueryLog();
+        }
 
         if (count($arrayQuery) == 0 ) {
             return 'no query available';

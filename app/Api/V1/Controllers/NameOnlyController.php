@@ -37,7 +37,7 @@ class NameOnlyController extends Controller
 
         $model->save();
 
-        $this->postLog($request, 'Create' , $model->toSql() );
+        $this->postLog($request, 'Create' );
 
         return [
             'success' => true,
@@ -66,7 +66,7 @@ class NameOnlyController extends Controller
 
         $model->save();
 
-        $this->postLog($request, 'Update' , $model->toSql() );
+        $this->postLog($request, 'Update'  );
         
         return [
             'success' => true,
@@ -90,9 +90,7 @@ class NameOnlyController extends Controller
 
         $model->delete();
 
-        $table = $this->model->getTable();
-        $sql = 'delete from '.$table.' where id='.$id;
-        $this->postLog($request, 'Delete' , $sql );
+        $this->postLog($request, 'Delete' );
         
 
         return [
