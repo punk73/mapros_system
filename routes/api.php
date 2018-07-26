@@ -78,6 +78,14 @@ $api->version('v1', function (Router $api) {
             $api->delete('/{id}', 'App\\Api\\V1\\Controllers\\DepartmentController@delete' );
             $api->get('/{id}', 'App\\Api\\V1\\Controllers\\DepartmentController@show' );
         });
+
+        $api->group(['prefix' => 'scanners'], function (Router $api) {
+            $api->get('/', 'App\\Api\\V1\\Controllers\\ScannerController@index' );
+            $api->post('/', 'App\\Api\\V1\\Controllers\\ScannerController@store' );
+            $api->put('/{id}', 'App\\Api\\V1\\Controllers\\ScannerController@update' );
+            $api->delete('/{id}', 'App\\Api\\V1\\Controllers\\ScannerController@delete' );
+            $api->get('/{id}', 'App\\Api\\V1\\Controllers\\ScannerController@show' );
+        });
         
     });
 
@@ -87,11 +95,5 @@ $api->version('v1', function (Router $api) {
         ]);
     });
 
-    $api->group(['prefix' => 'scanners'], function (Router $api) {
-            $api->get('/', 'App\\Api\\V1\\Controllers\\ScannerController@index' );
-            $api->post('/', 'App\\Api\\V1\\Controllers\\ScannerController@store' );
-            $api->put('/{id}', 'App\\Api\\V1\\Controllers\\ScannerController@update' );
-            $api->delete('/{id}', 'App\\Api\\V1\\Controllers\\ScannerController@delete' );
-            $api->get('/{id}', 'App\\Api\\V1\\Controllers\\ScannerController@show' );
-        });
+    
 });
