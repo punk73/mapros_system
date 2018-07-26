@@ -101,5 +101,9 @@ $api->version('v1', function (Router $api) {
         ]);
     });
 
+    $api->group(['prefix' => 'tickets'], function (Router $api) {
+        $api->post('/', 'App\\Api\\V1\\Controllers\\TicketController@store' );
+    });
+
     
 });
