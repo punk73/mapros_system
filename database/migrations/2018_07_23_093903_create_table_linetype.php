@@ -16,7 +16,9 @@ class CreateTableLinetype extends Migration
         Schema::create('linetypes', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            
+            $table->string('remark')->nullable();
+            $table->integer('input_by')->nullable();
+            $table->integer('update_by')->nullable();
             $table->timestamps();
         });
     }
