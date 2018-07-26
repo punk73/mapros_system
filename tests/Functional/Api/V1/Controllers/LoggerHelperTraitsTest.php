@@ -6,47 +6,44 @@ use Hash;
 use App\User;
 use App\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Http\Request;
 use DB;
+
+class mockDb {
+    public function getQueryLog (){
+        return [
+            [
+                'query' => 'insert into table values ( ?,?,?,? )',
+                'bindings' => [
+                    'teguh', '12', 'balonggandu', 'another column value'
+                ], 
+                'time' => ''
+            ]
+        ];
+    }
+}
 
 class LoggerHelperTraitsTest extends TestCase
 {
     use DatabaseMigrations;
 
-    
-    
-
     public function testLoggerHelperGetQueryParameter(){
-        $mock = $this->getMockForTrait('App\Api\V1\Traits\LoggerHelper');
-        // configure the stub
-        /*$dbMock = $this->createMock(DB::class);
-        $dbMock->expects($this->any())
-        ->method('getQueryLog')
-        ->willReturn($returnValue);*/
-        $expectedValue =[
-            'query' => 'insert into table values ( ?,?,?,? )',
-            'bindings' => [
-                'teguh', '12', 'balonggandu', 'another column value'
-            ], 
-            'time' => ''
-        ];
+        $loggerHelper = $this->getMockForTrait('App\Api\V1\Traits\LoggerHelper');
+        // mockDb is class to mocking DB of laravel
+        $mockDb = new mockDb;
 
-        $test = [
-            'getQueryLog' => function (){
-                return [
-                    'query' => 'insert into table values ( ?,?,?,? )',
-                    'bindings' => [
-                        'teguh', '12', 'balonggandu', 'another column value'
-                    ], 
-                    'time' => ''
-                ];
-            }
-        ];
-        fwrite(STDOUT, var_dump($test));
-        // $result = $mock->getQueryParameter($this->generateMockDbClass());
-        // fwrite(STDOUT, var_dump($result));
-        // $this->assertSame($result , $expectedValue );
+        $expectedValue = "insert into table values ( teguh,12,balonggandu,another column value )";
 
+        $result = $loggerHelper->getQueryParameter($mockDb);
+        $this->assertSame($result, $expectedValue);
 
+    }
+
+    public function testPostLogMethodSuccess(){
+
+        // cannot test this method yet since I cannot mock the loggerHelper->getQueryParameter yet.
+        // the error below always shown
+        // Trying to configure method "getQueryParameter" which cannot be configured because it does not exist, has not been specified, is final, or is static
     }
 
 
