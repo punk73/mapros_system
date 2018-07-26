@@ -53,8 +53,6 @@ $api->version('v1', function (Router $api) {
             $api->get('/{id}', 'App\\Api\\V1\\Controllers\\LineController@show' );
         });
 
-        
-
         $api->group(['prefix' => 'sequences'], function (Router $api) {
             $api->get('/', 'App\\Api\\V1\\Controllers\\SequenceController@index' );
             $api->post('/', 'App\\Api\\V1\\Controllers\\SequenceController@store' );
@@ -85,6 +83,14 @@ $api->version('v1', function (Router $api) {
             $api->put('/{id}', 'App\\Api\\V1\\Controllers\\ScannerController@update' );
             $api->delete('/{id}', 'App\\Api\\V1\\Controllers\\ScannerController@delete' );
             $api->get('/{id}', 'App\\Api\\V1\\Controllers\\ScannerController@show' );
+        });
+        
+        $api->group(['prefix' => 'linetypes'], function (Router $api) {
+            $api->get('/', 'App\\Api\\V1\\Controllers\\LinetypeController@index' );
+            $api->post('/', 'App\\Api\\V1\\Controllers\\LinetypeController@store' );
+            $api->put('/{id}', 'App\\Api\\V1\\Controllers\\LinetypeController@update' );
+            $api->delete('/{id}', 'App\\Api\\V1\\Controllers\\LinetypeController@delete' );
+            $api->get('/{id}', 'App\\Api\\V1\\Controllers\\LinetypeController@show' );
         });
         
     });
