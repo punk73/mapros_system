@@ -100,6 +100,14 @@ $api->version('v1', function (Router $api) {
             $api->delete('/{id}', 'App\\Api\\V1\\Controllers\\LineprocessController@delete' );
             $api->get('/{id}', 'App\\Api\\V1\\Controllers\\LineprocessController@show' );
         });
+
+        $api->group(['prefix' => 'endpoints'], function (Router $api) {
+            $api->get('/', 'App\\Api\\V1\\Controllers\\EndpointController@index' );
+            $api->post('/', 'App\\Api\\V1\\Controllers\\EndpointController@store' );
+            $api->put('/{id}', 'App\\Api\\V1\\Controllers\\EndpointController@update' );
+            $api->delete('/{id}', 'App\\Api\\V1\\Controllers\\EndpointController@delete' );
+            $api->get('/{id}', 'App\\Api\\V1\\Controllers\\EndpointController@show' );
+        });
         
     });
 
