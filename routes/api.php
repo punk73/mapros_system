@@ -93,14 +93,6 @@ $api->version('v1', function (Router $api) {
             $api->get('/{id}', 'App\\Api\\V1\\Controllers\\LinetypeController@show' );
         });
 
-        $api->group(['prefix' => 'connections'], function (Router $api) {
-            $api->get('/', 'App\\Api\\V1\\Controllers\\ConnectionController@index' );
-            $api->post('/', 'App\\Api\\V1\\Controllers\\ConnectionController@store' );
-            $api->put('/{id}', 'App\\Api\\V1\\Controllers\\ConnectionController@update' );
-            $api->delete('/{id}', 'App\\Api\\V1\\Controllers\\ConnectionController@delete' );
-            $api->get('/{id}', 'App\\Api\\V1\\Controllers\\ConnectionController@show' );
-        });
-
         $api->group(['prefix' => 'lineprocesses'], function (Router $api) {
             $api->get('/', 'App\\Api\\V1\\Controllers\\LineprocessController@index' );
             $api->post('/', 'App\\Api\\V1\\Controllers\\LineprocessController@store' );
