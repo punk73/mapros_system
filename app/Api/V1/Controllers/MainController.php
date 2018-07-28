@@ -22,18 +22,21 @@ class BoardController extends Controller
 
     protected $allowedParameter = [
         'board_id',
-		'guid_master',
-		'guid_ticket',
-		'scanner_id',
-		'status',
-		'scan_nik',
-		'judge',
+        'nik',
+        'ip',
+        'is_solder'
     ];
 
-    public function store(BoardRequest $request ){
-    	// buat new node
 
-    	// cek apakah sudah ada process sebelumnya.
+
+    public function store(BoardRequest $request ){
+    	// cek apakah board id atau ticket;
+        
+        // jika board id, kita kerja di table boards;
+
+        // cek data scanner, yaitu scanner yang memiliki ip yg dikirim client ( $request->ip() )
+    	
+        // if is_solder == true, maka cek data di table boards based on boad id & scanner_id
 
     }
     
