@@ -19,7 +19,8 @@ class LineprocessController extends Controller
 	// the controller should always have allowedParameter
 	protected $allowedParameter = [
 		'name',
-		'connection_id',
+		'type',
+		'endpoint_id'
 	];
 
 	public function __construct(){

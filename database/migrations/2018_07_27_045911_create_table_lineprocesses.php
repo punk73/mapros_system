@@ -16,7 +16,8 @@ class CreateTableLineprocesses extends Migration
         Schema::create('lineprocesses', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->integer('connection_id')->default(1); //default value is declared by php artisan migrate --seed
+            $table->integer('type')->default(1); //internal =1; external=2; chamber=3
+            $table->integer('endpoint_id')->nullable(); 
             $table->timestamps();
         });
     }

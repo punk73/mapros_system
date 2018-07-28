@@ -24,8 +24,9 @@ class LineprocessControllerTest extends TestCase
     ];
 
     protected $inputParameter = [
-    	'name' => 'Scanner 03',
-        'connection_id' => 1
+    	'name' => 'Proses 03',
+        'endpoint_id' => 1,
+        'type' => 2 //external
     ];
 
     protected $failedInputParameter = [
