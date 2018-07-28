@@ -7,12 +7,12 @@ use App\Http\Controllers\Controller;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Illuminate\Http\Request;
 use App\Api\V1\Requests\TicketRequest;
-use App\Ticket;
+use App\Ticket_masters;
 
-class TicketController extends Controller
+class TicketMasterController extends Controller
 {	
 	public function __construct(){
-		$this->model = new Ticket;
+		$this->model = new Ticket_masters;
 	}
 
 	protected $allowedParameter = [
@@ -24,7 +24,7 @@ class TicketController extends Controller
 	public function store(TicketRequest $request){
 
 		// cek if ilne_id & code exists on table;
-		$ticket = Ticket::where('line_id', $request->line_id )
+		$ticket = Ticket_masters::where('line_id', $request->line_id )
 		->where('code', $request->code )
 		->orderBy('id', 'desc');
 
@@ -50,7 +50,7 @@ class TicketController extends Controller
 	}
 
 	private function insertTicket(TicketRequest $request){
-		$newTicket = new Ticket;
+		$newTicket = new Ticket_masters;
 		$newTicket->line_id = $request->line_id;
 		$newTicket->code = $request->code;
 		$newTicket->last_no = $request->last_no;
@@ -59,14 +59,14 @@ class TicketController extends Controller
 		return $newTicket;
 	}
 
-	private function updateTicket(Ticket $ticket, $count = 1 ){
+	private function updateTicket(Ticket_masters $ticket, $count = 1 ){
 		$ticket->last_no = $ticket->last_no + $count ;
 		$ticket->save();
 
 		return $ticket;
 	}
 
-	private function encode(Ticket $ticket, $start=1 ,$count = 1 ){
+	private function encode(Ticket_masters $ticket, $start=1 ,$count = 1 ){
 		$arrayResult = [];
 		for ($i=$start; $i <= ($start+$count) ; $i++) { 
 			$code = $ticket->code;

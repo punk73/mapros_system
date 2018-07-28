@@ -3,18 +3,18 @@
 namespace App\Functional\Api\V1\Controllers;
 
 use App\TestCase;
-use App\Ticket;
+use App\Ticket_masters;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use App\Functional\Api\V1\Traits\testHelper;
 
-class TicketControllerTest extends TestCase
+class TicketMasterControllerTest extends TestCase
 {
     use DatabaseMigrations;
 
-    protected $endpoint = 'api/tickets/';
+    protected $endpoint = 'api/ticket_masters/';
 
     public function __construct(){
-        $this->model = new Ticket;
+        $this->model = new Ticket_masters;
     }
 
     protected $expectedJsonStructure = [
