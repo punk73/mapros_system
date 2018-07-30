@@ -140,7 +140,7 @@ return [
     'errorFormat' => [
         'success' => false,
         'message' => ':message',
-        'errors' => ((':message' + ':errors') !== 0 ) ? ':errors' : ':message' ,
+        'errors' => ':errors', //((':message' + ':errors') !== 0 ) ? ':errors' : ':message' ,
         'code' => ':code',
         'status_code' => ':status_code',
         'debug' => ':debug'

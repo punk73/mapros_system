@@ -11,12 +11,8 @@ class BoardRequest extends FormRequest
     {
         return [
             'board_id' => 'required',
-            // 'guid_master' => 'required',
-            // 'guid_ticket' => 'required',
-            'scanner_id' => 'integer',
-            'status' => 'required',
-            'scan_nik' => 'required',
-            // 'judge' => 'required',
+            'nik' => 'required'
+            
         ];
     }
 

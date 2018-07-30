@@ -10,9 +10,9 @@ use App\Api\V1\Requests\BoardRequest;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Illuminate\Http\Request;
 use App\Api\V1\Traits\LoggerHelper;
-use SplDoublyLinkedList as Node;
+use App\Api\V1\Helper\Node;
 
-class BoardController extends Controller
+class MainController extends Controller
 {
     use LoggerHelper;
 
@@ -27,11 +27,23 @@ class BoardController extends Controller
         'is_solder'
     ];
 
+    private function getParameter (BoardRequest $request){
+        $result = $request->only($this->allowedParameter);
 
+        // setup default value for ip 
+        $result['ip'] = (!isset($result['ip'] )) ? $request->ip() : $request->ip ;
+        // setup default value for is_solder is false;
+        $result['is_solder'] = (!isset($result['is_solder'] )) ? false : $request->is_solder ;
+
+        return $result;
+    }
 
     public function store(BoardRequest $request ){
-    	// cek apakah board id atau ticket;
-        
+    	$parameter = $this->getParameter($request);
+
+        // cek apakah board id atau ticket;
+        $node = new Node($parameter);
+        return $node;
         // jika board id, kita kerja di table boards;
 
         // cek data scanner, yaitu scanner yang memiliki ip yg dikirim client ( $request->ip() )

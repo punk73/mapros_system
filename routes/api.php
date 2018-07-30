@@ -121,5 +121,9 @@ $api->version('v1', function (Router $api) {
         $api->post('/', 'App\\Api\\V1\\Controllers\\TicketMasterController@store' );
     });
 
+    $api->group(['prefix' => 'main'], function (Router $api) {
+        $api->post('/', 'App\\Api\\V1\\Controllers\\MainController@store' );
+    });    
+
     
 });
