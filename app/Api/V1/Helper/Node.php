@@ -29,6 +29,7 @@ class Node
 	public $status;
 	public $judge = 'OK';
 	public $nik;
+	protected $dummy_column;
 
 	function __construct($parameter)
 	{	
@@ -44,14 +45,14 @@ class Node
 	}
 
 	public function __toString(){
-		return json_encode( [
-			'scanner_id' => $this->scanner_id,
-			'dummy_id' => $this->dummy_id,
-			'guid_master' => $this->guid_master,
-			'guid_ticket' => $this->guid_ticket,
-			'status' => $this->status,
-			'judge' => $this->judge,
-			'nik' => $this->nik,
+		return json_encode([
+			'scanner_id' 	=> $this->scanner_id,
+			'dummy_id' 		=> $this->dummy_id,
+			'guid_master' 	=> $this->guid_master,
+			'guid_ticket' 	=> $this->guid_ticket,
+			'status' 		=> $this->status,
+			'judge' 		=> $this->judge,
+			'nik' 			=> $this->nik,
 		]);
 	}
 
@@ -66,17 +67,28 @@ class Node
 		if (in_array($code, $this->ticketCriteria )) {
 			// it is ticket, so we work with ticket
 			if($code == 'MST'){
-				$this->model = Master::class;
+				$this->model = new Master;
+				$this->dummy_column = 'ticket_no_master';
 			}else {
-				$this->model = Ticket::class;
+				$this->model = new Ticket;
+				$this->dummy_column = 'ticket_no';
 			}
 		}else {
 			// it is a board, we working with board;
-			$this->model = Board::class;
+			$this->model = new Board;
+			$this->dummy_column = 'board_id';
+
 		}
 	}
 
+	public function isExists(){
+		return $this->model
+		->where( 'scanner_id' , $this->scanner_id  )
+		->where($this->dummy_column, $this->dummy_id )
+		->exists();
+	}
 
-
-
+	public function prev(){
+		
+	}
 }

@@ -43,7 +43,11 @@ class MainController extends Controller
 
         // cek apakah board id atau ticket;
         $node = new Node($parameter);
-        return $node;
+        if( $node->isExists()){
+            return 'ada';
+        }else {
+            return 'tidak ada';
+        };
         // jika board id, kita kerja di table boards;
 
         // cek data scanner, yaitu scanner yang memiliki ip yg dikirim client ( $request->ip() )
