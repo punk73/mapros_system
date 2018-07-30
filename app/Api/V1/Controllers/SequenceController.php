@@ -20,8 +20,7 @@ class SequenceController extends Controller
 	protected $allowedParameter = [
 		'name',
 		'line_id',
-		'lineprocess_id',
-		'lineprocess_id_before',
+		'process',
 	];
 
 	public function __construct(){

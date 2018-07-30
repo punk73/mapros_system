@@ -140,7 +140,7 @@ return [
     'errorFormat' => [
         'success' => false,
         'message' => ':message',
-        'errors' => ':errors', //((':message' + ':errors') !== 0 ) ? ':errors' : ':message' ,
+        'errors' => (':errors' == null || ':errors' == '' ) ? ':message' : ':errors' ,
         'code' => ':code',
         'status_code' => ':status_code',
         'debug' => ':debug'
@@ -156,7 +156,7 @@ return [
     */
 
     'middleware' => [
-        // 'cors' => 'Barryvdh\Cors\ServiceProvider',
+        \Barryvdh\Cors\HandleCors::class,
     ],
 
     /*

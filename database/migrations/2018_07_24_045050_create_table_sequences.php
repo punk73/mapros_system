@@ -17,8 +17,7 @@ class CreateTableSequences extends Migration
             $table->increments('id');
             $table->string('name');
             $table->integer('line_id');
-            $table->integer('lineprocess_id');
-            $table->integer('lineprocess_id_before')->nullable();  
+            $table->string('process'); //collection of line process  
             $table->integer('update_by')->nullable();
             $table->integer('input_by')->nullable();
             $table->timestamps();

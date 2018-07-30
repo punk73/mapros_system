@@ -29,8 +29,8 @@ class SequenceControllerTest extends TestCase
     protected $inputParameter = [
         'name' => 'squence 02',
         'line_id' => 2,
-        'lineprocess_id' => 2,
-        'lineprocess_id_before' => 1,
+        'process' => "1,2,3,4,5",
+        
     ];
 
     protected $failedInputParameter = [
