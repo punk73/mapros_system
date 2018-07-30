@@ -34,9 +34,9 @@ class Node
 	{	
 		// setup model
 		$this->setModel($parameter);
-		// setup ip
+		// setup scanner_id;
 		$ip = $parameter['ip'];
-		$this->scanner_id = $this->setScannerId($ip);
+		$this->setScannerId($ip);
 		// setup nik
 		$this->nik = $parameter['nik'];
 		// setup board_id
@@ -57,7 +57,7 @@ class Node
 
 	public function setScannerId($scanner_ip){
 		$scanner = (Scanner::where('ip_address', $scanner_ip )->exists()) ? Scanner::where('ip_address', $scanner_ip )->first() : null ;
-		$this->scanner_ip = $scanner['id'];
+		$this->scanner_id = $scanner['id'];
 	}
 
 	private function setModel($parameter){
