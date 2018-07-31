@@ -1,3 +1,4 @@
+
 <?php
 namespace App\Functional\Api\V1\Traits;
 

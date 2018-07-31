@@ -66,7 +66,7 @@ class LineControllerTest extends TestCase
         ])
         ->assertJsonStructure([
             'success',
-            'errors',
+            // 'errors',
             'message',
             'status_code',
         ])

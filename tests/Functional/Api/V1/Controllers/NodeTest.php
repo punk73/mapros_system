@@ -21,7 +21,7 @@ class NodeTest extends TestCase
 
     /*
     * @instantiate Node class
-    *
+    * 
     *
     *
     */
@@ -68,6 +68,10 @@ class NodeTest extends TestCase
         $this->assertEquals(11, $node->scanner_id );
         // assertEquals($expected, $actual )
         $this->assertEquals( true, $node->isExists() );
+    }
+
+    public function testPrevMethod(){
+        
     }
 
 }
