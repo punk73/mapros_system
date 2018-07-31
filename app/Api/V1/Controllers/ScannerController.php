@@ -16,6 +16,12 @@ class ScannerController extends Controller
     // the controller should always have model var
 	protected $model;
 
+	protected $rules = [
+		'sequence_id' => 'required', 
+		'name' => 'required', 
+		'mac_address' => 'required',
+		'ip_address' => 'required'
+	];
 	// the controller should always have allowedParameter
 	protected $allowedParameter = [
 		'sequence_id', 'name', 'mac_address','ip_address'

@@ -16,6 +16,12 @@ class SequenceController extends Controller
     // the controller should always have model var
 	protected $model;
 
+	protected $rules = [
+		'name' => 'required',
+		'line_id' => 'required|integer',
+		'process' => 'required',
+	];
+
 	// the controller should always have allowedParameter
 	protected $allowedParameter = [
 		'name',

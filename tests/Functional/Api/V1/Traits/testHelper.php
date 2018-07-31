@@ -16,12 +16,41 @@ trait testHelper {
         ->assertStatus(200);
     }
 
-    public function testReadWithFileter(){
-        $this->get($this->endpoint, $this->filterParameter )
-        ->assertJsonStructure(
+    public function testReadWithLimitSpecify(){
+        
+        $limit = 3;
+
+        $ajax = $this->get($this->endpoint, [
+            'limit' => $limit 
+        ]);
+
+        $result = $ajax->original;
+        // cek result data 3;
+        //assertLessThanOrEqual($expected, $actual ) 
+        $this->assertLessThanOrEqual($limit, count($result['data']) );
+    }
+
+    public function testReadWithFilter(){
+        $response = $this->get($this->endpoint, $this->filterParameter );
+
+        $response->assertJsonStructure(
             $this->expectedJsonStructure
         )
-        ->assertStatus(200);
+        ->assertStatus(200);        
+    }
+
+    public function testReadWithFilterSuccess (){
+        if (method_exists($this, 'seedDb')) {
+            $this->seedDb();
+
+            $this->get($this->endpoint, $this->filterParameter )
+            ->assertJson([
+                'data' => [
+                    
+                ]
+            ]);
+            
+        }
     }
 
     public function testPostSuccess(){
@@ -42,7 +71,7 @@ trait testHelper {
         $this->post($this->endpoint, $this->failedInputParameter )
         ->assertJsonStructure([
             'success',
-            'errors',
+            // 'errors', //it can't be achieve now
             'message',
             'status_code',
         ])

@@ -18,13 +18,18 @@ trait CrudHelper {
 	// protected $allowedParameter = [];
     
     public function index(Request $request){
+        $limit = (isset($request->limit)) ? $request->limit : 15 ;
+
         $models = $this->model->select();
         $models = $this->filter($request, $models);
-        return $models->paginate();
+        return $models->paginate($limit);
     }
 
     public function store(Request $request ){
         DB::enableQueryLog();
+        /*you are doing it */
+        $rules = (isset($this->rules)) ? $this->rules : [];
+        $this->validate($request, $rules );
         $model = new $this->model;
         
         foreach ($request->only($this->allowedParameter) as $key => $value) {
@@ -95,8 +100,12 @@ trait CrudHelper {
 
     private function filter(Request $request, $model ){
         $params = $request->only($this->allowedParameter);
+        $table = $this->model->getTable();
+        $tableColumns = DB::getSchemaBuilder()->getColumnListing($table);
+        // return $params;
         foreach ($params as $key => $param) {
-            if (isset($params[$key]) && $param != '' ) {
+            if ( in_array($key, $tableColumns )  && $param != '' ) {
+                
                 $model = $model->where($key, 'like', $param .'%' );
             }    
         }

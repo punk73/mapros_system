@@ -81,11 +81,17 @@ class Node
 		}
 	}
 
+	public function getModel(){
+		return $this->model;
+	}
+
 	public function isExists(){
-		return $this->model
-		->where( 'scanner_id' , $this->scanner_id  )
-		->where($this->dummy_column, $this->dummy_id )
-		->exists();
+		return (
+			$this->model
+			->where( 'scanner_id' , $this->scanner_id  )
+			->where( $this->dummy_column, $this->dummy_id )
+			->count() > 0 
+		);
 	}
 
 	public function prev(){

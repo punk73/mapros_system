@@ -6,6 +6,7 @@ use App\TestCase;
 use App\Scanner;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use App\Functional\Api\V1\Traits\testHelper;
+use Illuminate\Support\Facades\Artisan;
 
 class BasedControllerTest extends TestCase
 {
@@ -22,6 +23,12 @@ class BasedControllerTest extends TestCase
     protected $filterParameter = [
     	'name' => 'Scanner'
     ];
+
+    public function seedDb(){
+        // it's mean to seed the db for testing purpose;
+        // Artisan::call('migrate:refresh');
+        Artisan::call('db:seed', ['--class'=>'ScannerSeeder'] );
+    }
 
     protected $inputParameter = [
     	'sequence_id' => 10,
