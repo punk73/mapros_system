@@ -18,5 +18,6 @@ class DatabaseSeeder extends Seeder
         $this->call(LineprocessSeeder::class);
         $this->call(EndpointSeeder::class);
         $this->call(LineSeeder::class);
+        $this->call(LinetypeSeeder::class);
     }
 }
