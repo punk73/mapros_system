@@ -10,12 +10,14 @@
 | database. Just tell the factory how a default model should look.
 |
 */
-
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 $factory->define(App\Scanner::class, function (Faker\Generator $faker) {
+    
+    static $autoIncrement = 3;
+
     return [
-    	'line_id' => $faker->unique()->randomNumber(),
-    	'lineprocess_id' => $faker->unique()->randomNumber(),
+    	'line_id' => 1,
+    	'lineprocess_id' => $autoIncrement++,
     	'name' => $faker->name, 
     	'mac_address' => $faker->macAddress,
     	'ip_address'=> $faker->ipv4

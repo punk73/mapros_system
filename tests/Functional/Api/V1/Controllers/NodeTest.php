@@ -6,6 +6,7 @@ use App\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use App\Api\V1\Helper\Node;
 use App\Board;
+use App\Scanner;
 use Illuminate\Support\Facades\Artisan;
 
 class NodeTest extends TestCase
@@ -60,7 +61,10 @@ class NodeTest extends TestCase
         $this->seedDb();
 
         $board = Board::all();
+        $scanners = Scanner::where('ip_address', '::1')->get();
+
         // assertGreaterThan( $idealValue , $assertedValue )
+        $this->assertGreaterThan( 0, count($scanners));
         $this->assertGreaterThan( 0, count($board));
 
         $node = new Node($this->parameter);
