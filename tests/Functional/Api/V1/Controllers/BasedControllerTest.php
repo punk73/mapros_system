@@ -31,7 +31,8 @@ class BasedControllerTest extends TestCase
     }
 
     protected $inputParameter = [
-    	'sequence_id' => 10,
+    	'line_id' => 1,
+        'lineprocess_id'=>1,
     	'name' => 'Scanner 03',
     	'mac_address' => '3C:FC:92:34:10:F5',
     	'ip_address' => '16.162.125.87'

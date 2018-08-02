@@ -17,15 +17,15 @@ class ScannerController extends Controller
 	protected $model;
 
 	protected $rules = [
-		'sequence_id' => 'required', 
+		'line_id' => 'required',
+		'lineprocess_id' => 'required', 
 		'name' => 'required', 
 		'mac_address' => 'required',
 		'ip_address' => 'required'
 	];
 	// the controller should always have allowedParameter
 	protected $allowedParameter = [
-		'sequence_id', 'name', 'mac_address','ip_address'
-		
+		'line_id', 'lineprocess_id', 'name', 'mac_address','ip_address'
 	];
 
 	public function __construct(){

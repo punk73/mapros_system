@@ -15,10 +15,12 @@ class CreateTableScanners extends Migration
     {
         Schema::create('scanners', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('sequence_id');
+            $table->integer('line_id');
+            $table->integer('lineprocess_id');
             $table->string('name');
             $table->string('mac_address');
             $table->string('ip_address');
+
             $table->timestamps();
         });
     }

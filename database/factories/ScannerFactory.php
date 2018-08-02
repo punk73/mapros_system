@@ -14,7 +14,8 @@
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 $factory->define(App\Scanner::class, function (Faker\Generator $faker) {
     return [
-    	'sequence_id' => $faker->unique()->randomNumber(),
+    	'line_id' => $faker->unique()->randomNumber(),
+    	'lineprocess_id' => $faker->unique()->randomNumber(),
     	'name' => $faker->name, 
     	'mac_address' => $faker->macAddress,
     	'ip_address'=> $faker->ipv4

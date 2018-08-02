@@ -15,14 +15,15 @@ class ScannerSeeder extends Seeder
         factory(App\Scanner::class, 10 )->create();
 
         $scanner = new Scanner;
-        $scanner->sequence_id = 2;
+        $scanner->line_id = 1;
+        $scanner->lineprocess_id = 2;        
         $scanner->name = 'Scanner 02';
         $scanner->mac_address = '65:C7:85:L9';
         $scanner->ip_address = '::1'; //localhost in ipv6
         $scanner->save();
     }
 
-    public function seedScanner(){
+    /*public function seedScanner(){
 
         $scanners = [
             // id  name    mac_address ip_address  lineprocess_id  line_id input_by    input_at    update_by   update_at
@@ -59,5 +60,5 @@ class ScannerSeeder extends Seeder
             $scanner->ip_address = '::1'; //localhost in ipv6
             $scanner->save();
         }
-    }
+    }*/
 }
