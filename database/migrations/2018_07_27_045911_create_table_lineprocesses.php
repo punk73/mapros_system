@@ -17,6 +17,7 @@ class CreateTableLineprocesses extends Migration
             $table->increments('id');
             $table->string('name');
             $table->integer('type')->default(1); //internal =1; external=2; chamber=3
+            $table->integer('std_time')->default(15); //it's avoid user to accidentaly scan twice;
             $table->integer('endpoint_id')->nullable(); 
             $table->timestamps();
         });

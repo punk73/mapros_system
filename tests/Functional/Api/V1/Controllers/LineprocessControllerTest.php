@@ -26,7 +26,8 @@ class LineprocessControllerTest extends TestCase
     protected $inputParameter = [
     	'name' => 'Proses 03',
         'endpoint_id' => 1,
-        'type' => 2 //external
+        'type' => 2, //external
+        'std_time' => 30
     ];
 
     protected $failedInputParameter = [

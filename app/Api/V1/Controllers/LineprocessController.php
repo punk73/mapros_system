@@ -20,7 +20,12 @@ class LineprocessController extends Controller
 	protected $allowedParameter = [
 		'name',
 		'type',
+		'std_time',
 		'endpoint_id'
+	];
+
+	protected $rules = [
+		'name' => 'required'
 	];
 
 	public function __construct(){
