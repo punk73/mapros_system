@@ -41,6 +41,7 @@ class LineControllerTest extends TestCase
 
         $this->post('api/lines/', [
             'name' => 'line01',
+            'linetype_id' => 1,
             'remark' => 'some remark here'  
         ])
         ->assertJson([
@@ -50,7 +51,8 @@ class LineControllerTest extends TestCase
             'success',
             'data' => [
                 'name',
-                'remark'
+                'remark',
+                'linetype_id'
             ]
         ])
         ->assertStatus(200);
@@ -107,6 +109,7 @@ class LineControllerTest extends TestCase
         $line = new Line;
         $line->name = 'dudududk';
         $line->remark = 'DA';
+        $line->linetype_id = 1;
         $line->save();
     }
 

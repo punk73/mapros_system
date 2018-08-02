@@ -22,8 +22,14 @@ class LineController extends Controller
     protected $allowedParameter = [
         'name',
         'remark',
+        'linetype_id',
         'input_by',
         'update_by',
+    ];
+
+    protected $rules = [
+        'name' => 'required',
+        'linetype_id' => 'required|integer'
     ];
     
     
