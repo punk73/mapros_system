@@ -8,10 +8,12 @@ use App\Model;
 use App\Board;
 use App\Ticket;
 use App\Scanner;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class Node
 {
 	protected $model;
+
 	protected $ticketCriteria = [
 		'MST', 'PNL', 'MCH'
 	];
@@ -92,6 +94,62 @@ class Node
 			->where( $this->dummy_column, $this->dummy_id )
 			->count() > 0 
 		);
+	}
+
+	protected $big_url = 'http://136.198.117.48/big/public/api/models';
+
+	public function getBoardType($board_id = null, $url=null){
+		// what if board id morethan 5 character ??
+		// what if board id null ??
+		if (is_null( $board_id)) {
+			$board_id = $this->dummy_id;
+			// get first 5 digit of char
+			$board_id = substr($board_id, 0, 5);
+		}
+
+		// default value of url is $this->big_url, it is for testing purposes
+		if (is_null( $url)) {
+			$url = $this->big_url;
+		}
+
+		$parameter = '?code=' . $board_id;
+		// init curl
+		$curl = curl_init();
+
+		if($curl == false){
+            throw new HttpException(422);
+        }
+		// set opt
+		curl_setopt_array($curl, [
+		    CURLOPT_URL => $url . $parameter,
+		    CURLOPT_RETURNTRANSFER => true,
+		    CURLOPT_TIMEOUT => 30000,
+		    CURLOPT_HTTPGET => true,
+		    CURLOPT_HEADER => 0,
+		    CURLOPT_HTTPHEADER => array(
+		    	// Set Here Your Requesred Headers
+		        'Content-Type: application/json',
+		    ),
+		]);
+
+		// send curl
+		$response = curl_exec($curl);
+		$err = curl_error($curl);
+		curl_close($curl);
+
+		// what if error ??
+		if ($err) {
+			throw new HttpException(422);
+		}
+		// decode json text into associative array;
+		$result = json_decode($response, true);
+
+		// what if not found ??
+		if (count($result['data']) > 0) {
+			return $result['data'][0]['pwbname'];
+		}else{
+			throw new HttpException(422);	
+		}
 	}
 
 	public function prev(){

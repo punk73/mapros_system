@@ -8,6 +8,7 @@ use App\Api\V1\Helper\Node;
 use App\Board;
 use App\Scanner;
 use Illuminate\Support\Facades\Artisan;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class NodeTest extends TestCase
 {
@@ -74,8 +75,22 @@ class NodeTest extends TestCase
         $this->assertEquals( true, $node->isExists() );
     }
 
+    public function testGetBoardTypeSuccess(){
+        
+    }
+
+    public function testGetBoardTypeFailedDataNotFound(){
+        $parameter = $this->parameter;
+        $parameter['board_id'] = 'FFFFFIA01001007'; // --> it's set to be not found!
+        $node = new Node($parameter);
+        
+        $this->expectException(HttpException::class);
+        $boardType = $node->getBoardType();
+    }    
+
     public function testPrevMethod(){
         
+
     }
 
 }
